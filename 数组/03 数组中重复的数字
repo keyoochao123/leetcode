@@ -1,0 +1,25 @@
+# 找出数组中重复的数字。
+# 在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。
+
+# 哈希表 时间O(n)，空间O（n）
+# 哈希表也叫散列表，哈希表是一种数据结构，它提供了快速的插入操作和查找操作，无论哈希表总中有多少条数据，插入和查找的时间复杂度都是为O(1)，查找速度非常快
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        repeatDict = {} # 建立一个新的字典
+        for num in nums: # 循环提出数组里面的每一个数字
+            if num not in repeatDict: # 如果数字不在字典里，就存入字典，字典的键是这个数，键对应的值是1
+                repeatDict[num] = 1
+            else:
+                return num    # 遇到和字典里面一样的数字，就返回
+
+# 时间复杂度O(n)，空间复杂度O(1)
+# 只要i处的数字不等于i，就一直循环，交换位置，让i数字换到i处，最后有重复的数字要放在同一处时就返回
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        for i in range(n):
+            while i != nums[i]:
+                if nums[i] == nums[nums[i]]:
+                    return nums[i]
+                temp = nums[i]
+                nums[i],nums[temp] = nums[temp],nums[i]
