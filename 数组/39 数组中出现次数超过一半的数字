@@ -1,0 +1,15 @@
+# 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        vote=0
+        for num in nums:
+            if vote == 0:
+                x = num
+            if num==x:vote += 1
+            else:vote -= 1
+        return x
+        
+摩尔投票法,相同的就相加，不同的就抵消
+时间复杂度O(n)
+空间复杂度O(1)
