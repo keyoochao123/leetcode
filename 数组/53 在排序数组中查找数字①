@@ -1,0 +1,22 @@
+# 统计一个数字在排序数组中出现的次数。
+
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        i,j = 0, len(nums)-1
+        # 搜索右边界
+        while i<=j:
+            m = (i+j)//2
+            if nums[m]<=target:i=m+1
+            else:j=m-1
+        r = i
+        # 当没有目标的时候，提前输出
+        if j >= 0 and nums[j] != target:return 0
+        # 搜索左边界
+        i=0
+        while i<=j:
+            m = (i+j)//2
+            if nums[m]<target:i=m+1
+            else:j=m-1
+        l = j
+        return r-l-1
