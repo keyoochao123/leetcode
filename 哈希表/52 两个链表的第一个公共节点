@@ -1,0 +1,16 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+# 输入两个链表，找出它们的第一个公共节点。
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        a=headA
+        b=headB
+        while a != b: # 当存在公共节点的时候，a先走链表A，再走链表B，会和b在公共节点相遇
+            if a:a = a.next
+            else:a=headB
+            if b:b = b.next
+            else:b=headA
+        return a  
