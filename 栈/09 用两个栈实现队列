@@ -1,0 +1,22 @@
+# 用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，deleteHead 操作返回 -1 )
+# 栈先入后出，队列先入先出
+class CQueue:
+
+    def __init__(self):
+        self.A,self.B = [],[] # A 用于加入队尾操作，B 用于将元素倒序
+
+    def appendTail(self, value: int) -> None:
+        self.A.append(value)
+
+    def deleteHead(self) -> int:
+        if self.B:return self.B.pop() # 删除倒序后的队尾元素
+        if not self.A:return -1 # 两个栈都是空
+        while self.A: 
+            self.B.append(self.A.pop()) # A中有的时候，A->B实现倒序
+        return self.B.pop() # 返回B的栈顶元素
+
+
+# Your CQueue object will be instantiated and called as such:
+# obj = CQueue()
+# obj.appendTail(value)
+# param_2 = obj.deleteHead()
