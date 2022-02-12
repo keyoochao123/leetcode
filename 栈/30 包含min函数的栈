@@ -1,0 +1,33 @@
+# 定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，调用 min、push 及 pop 的时间复杂度都是 O(1)。
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.A = [] # 主栈
+        self.B = [] # 辅助栈
+
+
+    def push(self, x: int) -> None:
+        self.A.append(x)
+        if not self.B or self.B[-1] >= x: # 没有辅助栈或者x比辅助栈的里面最后一个的小
+            self.B.append(x) # 辅助栈里面都是按照从大到小的顺序
+
+    def pop(self) -> None:
+        if self.A.pop() == self.B[-1]: # Apop之后，和b比较，保持一致性
+            self.B.pop()
+
+    def top(self) -> int:
+        return self.A[-1]
+
+
+    def min(self) -> int:
+        return self.B[-1]   
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(x)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.min()
