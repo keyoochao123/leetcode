@@ -1,0 +1,26 @@
+# 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# 双指针 迭代法
+# class Solution:
+#     def reverseList(self, head: ListNode) -> ListNode:
+#         pre,cur=None,head
+#         while(cur != None):
+#             temp = cur.next
+#             cur.next = pre
+#             pre = cur
+#             cur = temp
+#         return pre
+# 递归法
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:        
+        def reverse(pre,cur):
+            if not cur:
+                return pre               
+            tmp = cur.next
+            cur.next = pre
+            return reverse(cur,tmp)        
+        return reverse(None,head)
