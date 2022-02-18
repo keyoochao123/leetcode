@@ -1,0 +1,20 @@
+# 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# 用双指针
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        vhead = ListNode()
+        vhead.next=head
+        slow,fast = vhead,vhead
+        while(n!=0):
+            fast = fast.next # fast先走n步
+            n -= 1
+        while(fast.next != None):
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return vhead.next
