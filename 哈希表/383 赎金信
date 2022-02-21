@@ -1,0 +1,18 @@
+# 给你两个字符串：ransomNote 和 magazine ，判断 ransomNote 能不能由 magazine 里面的字符构成。
+
+# 如果可以，返回 true ；否则返回 false 。
+
+# magazine 中的每个字符只能在 ransomNote 中使用一次。
+# 因为题目所只有小写字母，那可以采用空间换取时间的哈希策略， 用一个长度为26的数组还记录magazine里字母出现的次数。
+
+# 然后再用ransomNote去验证这个数组是否包含了ransomNote所需要的所有字母
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        ar = [0] * 26
+        for i in magazine:
+            ar[ord(i)-ord('a')] += 1
+        for i in ransomNote:
+            if ar[ord(i)-ord('a')] == 0:return False
+            else:
+                ar[ord(i)-ord('a')] -= 1
+        return True
