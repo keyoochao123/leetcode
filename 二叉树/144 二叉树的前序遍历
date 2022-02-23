@@ -16,3 +16,17 @@ class Solution:
             travelsal(root.right)
         travelsal(root)
         return re
+# 迭代
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root == None:return[]
+        re = []
+        stack = [root]
+        while stack:
+            node = stack.pop() # node是节点
+            re.append(node.val) # 左中右的顺序
+            if node.right: 
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+        return re
