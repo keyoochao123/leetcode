@@ -1,0 +1,39 @@
+# 给定一个二叉树，找出其最大深度。
+
+# 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+
+# 说明: 叶子节点是指没有子节点的节点。
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+# 递归
+# class Solution:
+#     def maxDepth(self, root: Optional[TreeNode]) -> int:
+#         return self.getDepth(root)
+#     def getDepth(self,node):
+#         if node == None:return 0
+#         leftdepth = self.getDepth(node.left)
+#         rightdepth = self.getDepth(node.right)
+#         depth = 1+max(leftdepth,rightdepth)
+#         return depth
+# 迭代法,层序遍历
+import collections
+class Solution:
+    def maxDepth(self,root:Optional[TreeNode]) -> int:
+        if root == None:return 0
+        depth = 0
+        queue = collections.deque()
+        queue.append(root)
+        while queue:
+            size = len(queue)
+            depth += 1
+            for i in range(size):
+                node = queue.popleft() # node指向出去的那个
+                if node.left:# 指针指向出去的那个有左孩子
+                    queue.append(node.left) # 加入队列
+                if node.right:
+                    queue.append(node.right)
+        return depth
