@@ -1,0 +1,62 @@
+# 给定一个 N 叉树，找到其最大深度。
+
+# 最大深度是指从根节点到最远叶子节点的最长路径上的节点总数。
+
+# N 叉树输入按层序遍历序列化表示，每组子节点由空值分隔（请参见示例）。
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+# 递归法：
+# class Solution:
+#     def maxdepth(self, root: 'node') -> int:
+#         if not root:
+#             return 0
+#         depth = 0
+#         for i in range(len(root.children)):
+#             depth = max(depth, self.maxdepth(root.children[i]))
+#         return depth + 1
+# 迭代法：
+# import collections
+# class Solution:
+#     def maxdepth(self, root: 'node') -> int:
+#         queue = collections.deque()
+#         if root:
+#             queue.append(root)
+#         depth = 0 #记录深度
+#         while queue:
+#             size = len(queue)
+#             depth += 1
+#             for i in range(size):
+#                 node = queue.popleft()
+#                 for j in range(len(node.children)):
+#                     if node.children[j]:
+#                         queue.append(node.children[j])
+#         return depth
+# 使用栈来模拟后序遍历依然可以
+class Solution:
+    def maxDepth(self, root: 'Node') -> int:        
+        st = []
+        if root:
+            st.append(root)
+        depth = 0
+        result = 0
+        while st:
+            node = st.pop()
+            if node !=  None:
+                st.append(node) #中
+                st.append(None)
+                depth += 1
+                for i in range(len(node.children)): #处理孩子
+                    if node.children[i]:
+                        st.append(node.children[i])
+            else:
+                node = st.pop()
+                depth -= 1
+            result = max(result, depth)
+        return result
