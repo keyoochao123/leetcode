@@ -1,0 +1,21 @@
+# 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
+
+# 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        return self.compare(p,q)
+    def compare(self,tree1,tree2):
+        if not tree1 and tree2:return False
+        if not tree2 and tree1:return False
+        if not tree1 and not tree2:return True
+        if tree1.val != tree2.val:return False
+        compleft = self.compare(tree1.left,tree2.left)
+        compright = self.compare(tree1.right,tree2.right)
+        isSame = compleft and compright
+        return isSame
