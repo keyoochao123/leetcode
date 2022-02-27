@@ -1,0 +1,22 @@
+# 给定一个二叉树，判断它是否是高度平衡的二叉树。
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+# 递归
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        if self.getheight(root) == -1:return False
+        else:return True
+    def getheight(self,node:TreeNode) -> bool:
+        leftheight,rightheight = 0,0
+        if node == None:return 0
+        leftheight=self.getheight(node.left)
+        if leftheight == -1:return -1
+        rightheight=self.getheight(node.right)
+        if rightheight == -1:return -1
+        if abs(leftheight - rightheight) > 1:return -1
+        else:
+            return 1+max(leftheight,rightheight)
