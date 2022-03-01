@@ -1,0 +1,41 @@
+# 给你一个含重复值的二叉搜索树（BST）的根节点 root ，找出并返回 BST 中的所有 众数（即，出现频率最高的元素）。
+
+# 如果树中有不止一个众数，可以按 任意顺序 返回。
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+# 中序遍历
+class Solution:
+    def findMode(self, root: TreeNode) -> List[int]:
+        stack = []
+        cur = root # 后指针
+        pre = None # 前指针
+        maxCount, count = 0, 0
+        res = []
+        while cur or stack:
+            if cur:  # 指针来访问节点，访问到最底层
+                stack.append(cur)
+                cur = cur.left
+            else:  # 逐一处理节点
+                cur = stack.pop()
+                if pre == None:  # 第一个节点
+                    count = 1
+                elif pre.val == cur.val:  # 与前一个节点数值相同
+                    count += 1
+                else:
+                    count = 1
+                if count == maxCount:
+                    res.append(cur.val)
+                if count > maxCount:
+                    maxCount = count
+                    res.clear()
+                    res.append(cur.val)
+
+                pre = cur
+                cur = cur.right
+        return res	
+	
