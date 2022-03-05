@@ -9,7 +9,8 @@ class Solution:
             if len(path) == k: # 终止条件
                 res.append(path[:]) # 存放结果
                 return
-            for i in range(StartIndex, n + 1):# 优化的地方
+            for i in range(StartIndex,n-(k-len(path))+2):#优化的地方，画图理解，path是已经选好的
+            # for i in range(StartIndex, n + 1):
                 path.append(i) # 处理节点
                 backtrack(n, k, i+1) 
                 path.pop() # 回溯，撤销处理的节点
