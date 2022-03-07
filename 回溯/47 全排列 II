@@ -1,0 +1,26 @@
+# 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
+# 如果要对树层中前一位去重，就用used[i - 1] == false，如果要对树枝前一位去重用used[i - 1] == true
+class Solution:
+    def __init__(self):
+        self.path=[]
+        self.paths=[]
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        if not nums: return []
+        used = [0] * len(nums)
+        # 给nums排序
+        nums.sort()
+        self.backtracking(nums,used)
+        return self.paths
+    def backtracking(self,nums:List[int], used:List[bool]) -> None:
+        if len(self.path) == len(nums):
+            self.paths.append(self.path[:])
+            return
+        for i in range(0,len(nums)):
+            if not used[i]:
+                if i>0 and nums[i] == nums[i-1] and not used[i-1]:# 如果同一树层used[i - 1]使用过则直接跳过
+                    continue
+                used[i] = 1
+                self.path.append(nums[i])
+                self.backtracking(nums, used)
+                self.path.pop()
+                used[i] = 0
