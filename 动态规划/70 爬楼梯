@@ -1,0 +1,15 @@
+# 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+
+# 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+# dp[i]： 爬到第i层楼梯，有dp[i]种方法
+# 所以dp[i] = dp[i - 1] + dp[i - 2] 
+# dp[1] = 1，dp[2] = 2
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n<3:
+            return n
+        a,b,c=1,2,0
+        for i in range(3,n+1):
+            c=a+b
+            a,b=b,c
+        return c
