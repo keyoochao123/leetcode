@@ -13,3 +13,20 @@ class Solution:
             c=a+b
             a,b=b,c
         return c
+        
+#一步一个台阶，两个台阶，三个台阶，.......，直到 m个台阶。问有多少种不同的方法可以爬到楼顶呢？
+#1阶，2阶，.... m阶就是物品，楼顶就是背包。
+#每一阶可以重复使用，例如跳了1阶，还可以继续跳1阶。
+#问跳到楼顶有几种方法其实就是问装满背包有几种方法。  
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        dp = [0]*(n + 1)
+        dp[0] = 1
+        m = 2
+        # 遍历背包
+        for j in range(n + 1):
+            # 遍历物品
+            for step in range(1, m + 1):
+                if j >= step:
+                    dp[j] += dp[j - step]
+        return dp[n]
