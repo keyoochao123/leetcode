@@ -1,0 +1,13 @@
+# 给你一个字符串 s 和一个字符串列表 wordDict 作为字典。请你判断是否可以利用字典中出现的单词拼接出 s 。
+
+# 注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+# dp[i] : 字符串长度为i的话，dp[i]为true，表示可以拆分为一个或多个在字典中出现的单词。
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False]*(len(s)+1)
+        dp[0]=True
+        for j in range(1,len(s)+1):
+            for word in wordDict:   
+                if j >= len(word):
+                    dp[j] = dp[j] or dp[j-len(word)] and word == s[j-len(word):j]
+        return dp[len(s)]
