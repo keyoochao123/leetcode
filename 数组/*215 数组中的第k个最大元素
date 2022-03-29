@@ -1,0 +1,11 @@
+# 求最大 top k 问题用最小堆，求最小 top k 问题用最大堆
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        n=len(nums)
+        hp=nums[:k]
+        heapq.heapify(hp)
+        for i in range(k,n):
+            if hp[0]<nums[i]:
+                heapq.heappop(hp)
+                heapq.heappush(hp,nums[i])
+        return hp[0]
