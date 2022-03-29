@@ -7,7 +7,7 @@ class Solution:
             i, j = l, r
             while i < j:
                 # 直到左边的找到大于哨兵的值，右边的找到小于哨兵的值，这时候交换两个值
-                while i < j and arr[j] >= arr[l]: j -= 1
+                while i < j and arr[j] >= arr[l]: j -= 1#每次都要先比右边的，再比左边的
                 while i < j and arr[i] <= arr[l]: i += 1
                 arr[i], arr[j] = arr[j], arr[i]
             # i >= j的时候，又去重新找哨兵
