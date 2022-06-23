@@ -8,13 +8,22 @@ class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         PA=headA
         PB=headB
-        while (PA!=PB):
-            if PA==None:
-                PA=headB
-            else:
-                PA=PA.next
-            if PB==None:
-                PB=headA
-            else:
+        # while (PA!=PB):
+        #     if PA==None:
+        #         PA=headB
+        #     else:
+        #         PA=PA.next
+        #     if PB==None:
+        #         PB=headA
+        #     else:
+        #         PB=PB.next
+        # return PA
+
+        s=set()
+        while PA:
+            s.add(PA)
+            PA=PA.next
+        while PB:
+            if PB not in s:
                 PB=PB.next
-        return PA
+        return PB
