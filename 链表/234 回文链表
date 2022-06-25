@@ -1,0 +1,32 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        if (head is None) or (head.next is None):
+            return True
+        slow = head
+        fast = head
+        pre = head
+        prepre = ListNode(None)
+
+        while(fast and fast.next):
+            pre = slow             # pre 紧跟在slow 后面一步
+
+            slow = slow.next       # 快慢指针用于找到中间节点 
+            fast = fast.next.next
+
+            pre.next = prepre      # 用于反转前半部分链表
+            prepre = pre
+
+        if (fast):                 # 如果跳出上一个while循环是 fast.next is None,那么就是奇数个节点，slow需要再走一步
+            slow = slow.next        #因为fast是两个两个的跳
+            
+        while(pre and slow):       # 从中间对称的位置往两边扩展，比对两边的数是否相等 
+            if (pre.val != slow.val):
+                return False
+            pre = pre.next
+            slow = slow.next
+        return True
