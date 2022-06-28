@@ -1,0 +1,58 @@
+# 递归
+class Solution:
+    def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
+        # base case
+        if m==1:
+            # 相当于反转前 n 个元素
+            last = self.reverseN(head,n)
+            return last
+        # 前进到反转的起点触发 base case
+        head.next = self.reverseBetween(head.next,m-1,n-1)
+        # print(head)
+        return head
+    # 将链表的前 n 个节点反转（n <= 链表长度）
+    # 反转以 head 为起点的 n 个节点，返回新的头结点
+    def reverseN(self, head: ListNode, n: int):
+        if n==1:
+            return head
+        # 以 head.next 为起点，需要反转前 n - 1 个节点
+        last = self.reverseN(head.next,n-1)
+        successor = head.next.next
+        head.next.next = head
+        # 让反转之后的 head 节点和后面的节点连起来
+        head.next = successor
+        return last
+# 迭代
+class Solution:
+    def reverseBetween(self, head, m, n):
+        # Empty list
+        if not head:
+            return None
+
+        # Move the two pointers until they reach the proper starting point
+        # in the list.
+        cur, prev = head, None
+        while m > 1:
+            prev = cur
+            cur = cur.next
+            m, n = m - 1, n - 1
+
+        # The two pointers that will fix the final connections.
+        tail, con = cur, prev
+
+        # Iteratively reverse the nodes until n becomes 0.
+        while n:
+            third = cur.next
+            cur.next = prev
+            prev = cur
+            cur = third
+            n -= 1
+
+        # Adjust the final connections as explained in the algorithm
+        if con:
+            con.next = prev
+        else:
+            head = prev
+        tail.next = cur
+        return head
+
