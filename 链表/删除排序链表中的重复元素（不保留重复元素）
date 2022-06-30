@@ -1,0 +1,25 @@
+在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5。
+
+思路：这里对发生重复的节点一个不留，会更难一些。需要两个指针，第一个指针停留在发生重复段的前面一个节点，第二个指针停留在发生重复段的后面一个节点，然后，第一个指针跳过中间的重复段，直接连接到第二个指针。这样就完成了对所有重复节点的删除。
+
+class Solution:
+    def deleteDuplication(self, pHead):
+        if (not pHead) or (not pHead.next):
+            return pHead
+        # 自己构建辅助哨兵节点，方便处理头结点
+        head = ListNode(None)  # 注意需要带一个参数 None ！！！
+        head.next = pHead
+        pre = head
+        cur = pHead
+        while(cur):
+            if (cur.next) and (cur.val == cur.next.val):
+                # 相同的节点一直前进
+                while (cur.next) and (cur.val == cur.next.val):
+                    cur = cur.next
+                # 退出循环时，cur指向重复值，cur.next指向第一个不重复的值
+                cur = cur.next  # cur继续前进
+                pre.next = cur  # pre 连接新的节点
+            else:
+                pre = cur
+                cur = cur.next
+        return head.next
