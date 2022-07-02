@@ -11,3 +11,18 @@ class Solution:
         else:
             list2.next = self.mergeTwoLists(list1,list2.next)
             return list2
+# 非递归
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        pre=ListNode(-1)
+        prev=pre
+        while list1 and list2:
+            if list1.val<=list2.val:
+                prev.next=list1
+                list1=list1.next
+            else:
+                prev.next=list2
+                list2=list2.next
+            prev=prev.next
+        prev.next=list1 if list1 else list2
+        return pre.next
