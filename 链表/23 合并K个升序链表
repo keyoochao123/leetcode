@@ -1,0 +1,56 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+#  优先队列 (堆),小顶堆
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if lists==None:
+            return None
+        import heapq
+        heap=[]
+        for node in lists:
+            while node:
+                heapq.heappush(heap,node.val)
+                node=node.next
+        dummy=ListNode(None)
+        cur=dummy
+        while heap:
+            tmp_node=ListNode(heappop(heap))
+            cur.next=tmp_node
+            cur=cur.next
+        return dummy.next
+# 时间复杂度：O(n∗log(k))，n 是所有链表中元素的总和，k 是链表个数。
+# 空间复杂度：这里用了优先队列，优先队列中的元素不超过 k个，故渐进空间复杂度为 O(k)
+
+# 分而治之，链表两两合并
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists:return 
+        n = len(lists)
+        return self.merge(lists, 0, n-1)
+    def merge(self,lists, left, right):
+        if left == right:
+            return lists[left]
+        mid = left + (right - left) // 2
+        l1 = self.merge(lists, left, mid)
+        l2 = self.merge(lists, mid+1, right)
+        return self.mergeTwoLists(l1, l2)
+    def mergeTwoLists(self,l1, l2):
+        if not l1:return l2
+        if not l2:return l1
+        if l1.val < l2.val:
+            l1.next = self.mergeTwoLists(l1.next, l2)
+            return l1
+        else:
+            l2.next = self.mergeTwoLists(l1, l2.next)
+            return l2
+# 两两相加的时间复杂度：O(k^2*n)，空间复杂度为 O(1)。
+# 优化成分而治之：时间复杂度为O(kn×logk)，空间复杂度：递归会使用到O(logk) 空间代价的栈空间。
