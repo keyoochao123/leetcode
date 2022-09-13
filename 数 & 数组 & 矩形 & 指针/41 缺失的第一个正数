@@ -1,0 +1,12 @@
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        l = len(nums)
+        for i in range(l):
+            while 1<= nums[i] <= l and nums[i] != nums[nums[i]-1]:
+                self._swap(nums,i,nums[i]-1)
+        for i in range(l):
+            if i+1 != nums[i]:
+                return i+1
+        return l+1
+    def _swap(self,nums,index1,index2):
+        nums[index1],nums[index2] = nums[index2],nums[index1]
